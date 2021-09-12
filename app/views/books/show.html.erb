@@ -1,0 +1,64 @@
+<p class= "flash_success"><%= notice %></p>
+
+    <div class="container px-5 px-sm-0">
+     <div class="row">
+      <div class="col-md-3">
+        <h2>User info</h2>
+       <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", size:'60x60'%>
+        <table class="table">
+          <tbody>
+           <tr>
+            <th>name</th>
+            <th><%= @user.name %></th>
+           </tr>
+           <tr>
+            <th>introduction</th>
+            <th><%= @user.introduction %></th>
+           </tr>
+          </tbody>
+        </table>
+
+        <%= link_to edit_user_path(@user) do  %>
+         <span class="btn btn-outline-secondary btn-block fas fa-user-cog"></span>
+        <% end %>
+
+         <h3>New book</h3>
+       <%= form_with model: @book_new, local:true do |f| %>
+         <br><a>Title</a></br>
+          <%= f.text_field :title %>
+         <br><a>Opinion</a></br>
+          <%= f.text_area :body %>
+          <br><input type="submit" name="commit" value="Create Book" class="btn btn-success" data-disable-with="Create Book"><br>
+       <% end %>
+      </div>
+
+<div class="col-md-8 offset-md-1">
+ <h1>Book detail</h1>
+  <table class="table table-hover table-inverse">
+    <thead>
+          <tr>
+           <th></th>
+           <th>Title</th>
+           <th>Opinion</th>
+           <th colspan="3"></th>
+          </tr>
+         </thead>
+    <tbody>
+      <tr>
+       <th><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg",size: '60x60'%>
+        <br><a class="profile-name"><%= link_to @user.name, user_path(@user) %></a></br>
+       </th>
+       <th><strong></strong><%= link_to @book.title %></th>
+       <th><strong></strong><%= @book.body %></th>
+
+       <% if @book.user == current_user %>
+       <th><%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %></th>
+       <th><%= link_to "Destroy", book_path(@book), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "本当に消しますか？"} %> </th>
+       <% end %>
+
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+  </div>
